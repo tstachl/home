@@ -5,15 +5,9 @@ let
 in
 {
   imports = [
+    ./nix.nix
     ./cli
   ] ++ (builtins.attrValues outputs.homeManagerModules);
-
-  nix.package = lib.mkDefault pkgs.nixVersions.stable;
-  nix.settings.trusted-users = [ "thomas" ];
-  nix.extraOptions = ''
-    warn-dirty = false
-    experimental-features = nix-command flakes impure-derivations
-  '';
 
   manual.manpages.enable = false;
   xdg.enable = true;
