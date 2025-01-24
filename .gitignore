@@ -1,0 +1,5 @@
+.devenv
+.direnv
+result*
+*.qcow2
+.DS_Store
