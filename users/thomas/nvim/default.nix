@@ -5,6 +5,7 @@ let
 
   # Merge all plugin configurations directly from imports
   nixvim = recursiveUpdateMany [
+    ({ enable = true; })
     (import ./colorschemes.nix)
     (import ./keymaps.nix)
     (import ./options.nix)

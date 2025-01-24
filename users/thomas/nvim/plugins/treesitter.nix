@@ -2,7 +2,7 @@
 {
   plugins.treesitter = {
     grammarPackages =
-      pkgs.stable.vimPlugins.nvim-treesitter.passthru.allGrammars;
+      pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars;
 
     enable = true;
     settings.ensure_installed = "all";
