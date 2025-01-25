@@ -9,8 +9,8 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixvim.url = "github:nix-community/nixvim/main";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nixvim.url = "github:nix-community/nixvim/nixos-24.11";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, nixpkgs-darwin, nixpkgs-unstable, home-manager, ... }@inputs:
