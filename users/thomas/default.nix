@@ -5,9 +5,11 @@ let
 in
 {
   imports = [
+    outputs.homeManagerModules
+
     ./nix.nix
     ./cli
-  ] ++ (builtins.attrValues outputs.homeManagerModules);
+  ];
 
   manual.manpages.enable = false;
   xdg.enable = true;
