@@ -17,6 +17,6 @@
   drb = "nix run github:lnl7/nix-darwin -- build --flake .#(hostname)";
   drs = "nix run github:lnl7/nix-darwin -- switch --flake .#(hostname)";
 
-  nrb = "nix run github:nixos/nixpkgs -- build --flake .#(hostname)";
-  nrs = "nix run github:nixos/nixpkgs -- switch --flake .#(hostname)";
+  nrb = "nixos-rebuild build --flake .#(hostname)";
+  nrs = "nixos-rebuild switch --flake .#(hostname)";
 }

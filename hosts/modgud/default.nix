@@ -9,6 +9,8 @@
     outputs.modules.global.nix-config
     outputs.modules.global.openssh
 
+    outputs.modules.global.users.thomas
+
     # ../common/users/thomas
     # ../common/users/thomas/authorized_keys.nix
     # ../common/users/thomas/groups.nix

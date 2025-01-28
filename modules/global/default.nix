@@ -8,4 +8,5 @@
   locale = import ./locale.nix;
   nix-config = import ./nix-config.nix;
   openssh = import ./openssh.nix;
+  users = import ./users;
 }
