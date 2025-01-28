@@ -48,7 +48,7 @@
     };
 
     settings = {
-      command = "${pkgs.lib.meta.getExe config.programs.nushell.package}";
+      command = "${pkgs.lib.meta.getExe config.programs.fish.package}";
 
       background-opacity = 0.8;
       font-family = "FiraCode Nerd Font";
