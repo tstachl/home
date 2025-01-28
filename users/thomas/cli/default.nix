@@ -8,6 +8,7 @@
     ./git.nix
     ./github.nix
     ./gnupg.nix
+    ./nushell.nix
     ./ssh.nix
     ./starship.nix
     ./yazi.nix

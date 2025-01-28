@@ -9,14 +9,14 @@
   ghic = "gh issue create --body '' ";
 
   # nix stuff
-  hmb = "nix run github:nix-community/home-manager -- build";
-  hms = "nix run github:nix-community/home-manager -- switch";
+  hmb = "nix run github:nix-community/home-manager -- build --flake .#(whoami)@(hostname)";
+  hms = "nix run github:nix-community/home-manager -- switch --flake .#(whoami)@(hostname)";
 
   home-manager = "nix run github:nix-community/home-manager --";
 
-  drb = "nix run github:lnl7/nix-darwin -- build";
-  drs = "nix run github:lnl7/nix-darwin -- switch";
+  drb = "nix run github:lnl7/nix-darwin -- build --flake .#(hostname)";
+  drs = "nix run github:lnl7/nix-darwin -- switch --flake .#(hostname)";
 
-  nrb = "nix run github:nixos/nixpkgs -- build";
-  nrs = "nix run github:nixos/nixpkgs -- switch";
+  nrb = "nix run github:nixos/nixpkgs -- build --flake .#(hostname)";
+  nrs = "nix run github:nixos/nixpkgs -- switch --flake .#(hostname)";
 }

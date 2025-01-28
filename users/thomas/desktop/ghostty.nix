@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   programs.ghostty-darwin = {
     enable = true;
@@ -48,7 +48,7 @@
     };
 
     settings = {
-      command = "${pkgs.lib.meta.getExe pkgs.fish}";
+      command = "${pkgs.lib.meta.getExe config.programs.nushell.package}";
 
       background-opacity = 0.8;
       font-family = "FiraCode Nerd Font";

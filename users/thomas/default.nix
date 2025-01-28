@@ -19,7 +19,7 @@ in
     homeDirectory = lib.mkDefault "${homeLocation}/${config.home.username}";
     sessionVariables = {
       EDITOR = "${pkgs.neovim}/bin/nvim";
-      SHELL = "${pkgs.fish}/bin/fish";
+      SHELL = "${pkgs.nushell}/bin/nu";
     };
     stateVersion = lib.mkDefault "24.11";
   };
