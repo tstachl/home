@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   configHome = "${config.xdg.configHome}/gnupg";
 in
@@ -21,7 +21,7 @@ in
   };
 
   services.gpg-agent = {
-    enable = true;
+    enable = lib.mkDefault true;
     defaultCacheTtl = 600;
     maxCacheTtl = 7200;
     enableExtraSocket = true;
