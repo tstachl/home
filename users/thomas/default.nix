@@ -5,9 +5,9 @@ let
 in
 {
   imports = [
-    outputs.homeManagerModules
+    outputs.modules.global.nix-config
+    outputs.modules.home-manager.ghostty
 
-    ./nix.nix
     ./cli
   ];
 

@@ -6,6 +6,12 @@
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    devenv.url = "github:cachix/devenv";
+    devenv.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -22,7 +28,18 @@
     in
     {
 
-      homeManagerModules = import ./modules;
+
+      modules = {
+        home-manager = import ./modules/home-manager;
+        global = import ./modules/global;
+      };
+
+      nixosConfigurations = {
+        modgud = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; inherit outputs; };
+          modules = [ ./hosts/modgud ];
+        };
+      };
 
       packages = forAllSystems (system:
         let
@@ -31,7 +48,6 @@
             else
               nixpkgs.legacyPackages.${system};
         in {
-
           homeConfigurations = {
             "thomas@meili" = home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
@@ -52,7 +68,6 @@
               ];
             };
           };
-
         }
       );
     };
