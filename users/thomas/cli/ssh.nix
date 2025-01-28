@@ -1,10 +1,10 @@
 { config, ... }:
 let
-  inherit (config.xdg) configHome;
+  configHome = "${config.xdg.configHome}/gnupg";
 in
 {
   home.sessionVariables = {
-    SSH_AUTH_SOCK = "${configHome}/gnupg/S.gpg-agent.ssh";
+    SSH_AUTH_SOCK = "${configHome}/S.gpg-agent.ssh";
   };
 
   programs.ssh = {
@@ -22,11 +22,11 @@ in
         user = "thomas";
         remoteForwards = [
           {
-            host.address = "/Users/thomas/.config/gnupg/S.gpg-agent.extra";
+            host.address = "${configHome}/S.gpg-agent.extra";
             bind.address = "/run/user/1000/gnupg/d.o6jzqfigwppq1eps4nhng6n5/S.gpg-agent";
           }
           {
-            host.address = "/Users/thomas/.config/gnupg/S.gpg-agent.ssh";
+            host.address = "${configHome}/S.gpg-agent.ssh";
             bind.address = "/run/user/1000/gnupg/d.o6jzqfigwppq1eps4nhng6n5/S.gpg-agent.ssh";
           }
         ];

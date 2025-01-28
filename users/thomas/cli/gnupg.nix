@@ -1,15 +1,15 @@
 { config, pkgs, ... }:
 let
-  inherit (config.xdg) configHome;
+  configHome = "${config.xdg.configHome}/gnupg";
 in
 {
   home.sessionVariables = {
-    GNUPGHOME = "${configHome}/gnupg";
+    GNUPGHOME = configHome;
   };
 
   programs.gpg = {
     enable = true;
-    homedir = "${configHome}/gnupg";
+    homedir = configHome;
 
     publicKeys = [{
       source = pkgs.fetchurl {
