@@ -1,10 +1,10 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   configHome = "${config.xdg.configHome}/gnupg";
 in
 {
   home.sessionVariables = {
-    SSH_AUTH_SOCK = "${configHome}/S.gpg-agent.ssh";
+    SSH_AUTH_SOCK = lib.mkDefault "${configHome}/S.gpg-agent.ssh";
   };
 
   programs.ssh = {
