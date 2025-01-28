@@ -19,4 +19,16 @@ in
       trust = 5;
     }];
   };
+
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 600;
+    maxCacheTtl = 7200;
+    enableExtraSocket = true;
+    enableSshSupport = true;
+    extraConfig = ''
+      keep-tty
+      keep-display
+    '';
+  };
 }

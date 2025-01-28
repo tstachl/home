@@ -33,7 +33,7 @@
         in {
 
           homeConfigurations = {
-            thomas = home-manager.lib.homeManagerConfiguration {
+            "thomas@meili" = home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
               extraSpecialArgs = { inherit inputs; inherit outputs; };
               modules = [
@@ -43,10 +43,13 @@
               ];
             };
 
-            thomas-slim = home-manager.lib.homeManagerConfiguration {
+            "thomas@modgud" = home-manager.lib.homeManagerConfiguration {
               inherit pkgs;
               extraSpecialArgs = { inherit inputs; inherit outputs; };
-              modules = [ ./users/thomas ];
+              modules = [
+                ./users/thomas
+                ./users/thomas/modgud
+              ];
             };
           };
 

@@ -20,6 +20,16 @@ in
       modgud = {
         hostname = "modgud.t5.st";
         user = "thomas";
+        remoteForwards = [
+          {
+            host.address = "/Users/thomas/.config/gnupg/S.gpg-agent.extra";
+            bind.address = "/run/user/1000/gnupg/d.o6jzqfigwppq1eps4nhng6n5/S.gpg-agent";
+          }
+          {
+            host.address = "/Users/thomas/.config/gnupg/S.gpg-agent.ssh";
+            bind.address = "/run/user/1000/gnupg/d.o6jzqfigwppq1eps4nhng6n5/S.gpg-agent.ssh";
+          }
+        ];
       };
 
       "github.com".user = "git";
