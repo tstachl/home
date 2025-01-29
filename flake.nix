@@ -68,7 +68,7 @@
               ];
             };
           };
-        }
+        } // import ./packages { inherit pkgs; }
       );
     };
 }
