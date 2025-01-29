@@ -1,9 +1,15 @@
-{ pkgs, config, ... }:
+{ pkgs, config, outputs, ... }:
 {
+  imports = [
+    outputs.modules.home-manager.ghostty
+  ];
+
   programs.ghostty-darwin = {
     enable = true;
 
+    # installBatSyntax = true;
     # installVimSyntax = true;
+
     enableBashIntegration = true;
     enableZshIntegration = true;
     enableFishIntegration = true;

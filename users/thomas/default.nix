@@ -6,7 +6,6 @@ in
 {
   imports = [
     outputs.modules.global.nix-config
-    outputs.modules.home-manager.ghostty
 
     ./cli
   ];
@@ -18,7 +17,6 @@ in
     username = lib.mkDefault "thomas";
     homeDirectory = lib.mkDefault "${homeLocation}/${config.home.username}";
     sessionVariables = {
-      EDITOR = "${pkgs.neovim}/bin/nvim";
       SHELL = "${pkgs.nushell}/bin/nu";
     };
     stateVersion = lib.mkDefault "24.11";

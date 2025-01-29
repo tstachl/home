@@ -2,6 +2,8 @@
   "..." = "cd ../..";
   "...." = "cd ../../..";
 
+  la = "ls -la";
+
   # Git stuff
   g = "git";
   gco = "git checkout ";
