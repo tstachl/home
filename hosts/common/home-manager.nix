@@ -7,11 +7,14 @@ let
       inputs.home-manager.nixosModules.home-manager;
 in
 {
-  imports = [ home-manager-module ];  
+  imports = [ home-manager-module ];
   home-manager = {
     # INFO: since we also use home-manager standalone, we don't want to mix up packages.
     # useGlobalPkgs = true;
     # useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; inherit outputs; };
+    extraSpecialArgs = {
+      inherit inputs;
+      inherit outputs;
+    };
   };
 }

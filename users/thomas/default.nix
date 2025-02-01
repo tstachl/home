@@ -1,7 +1,12 @@
-{ pkgs, lib, config, outputs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  outputs,
+  ...
+}:
 let
-  homeLocation = with pkgs.stdenv.hostPlatform;
-    if isDarwin then "/Users" else "/home";
+  homeLocation = with pkgs.stdenv.hostPlatform; if isDarwin then "/Users" else "/home";
 in
 {
   imports = [

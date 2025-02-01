@@ -1,10 +1,13 @@
 {
-  description = "my home manager configuration";
-  
+  description = "my nix configuration";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -19,56 +22,57 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-darwin, nixpkgs-unstable, home-manager, ... }@inputs:
-    let
-      inherit (self) outputs;
-      forAllSystems = nixpkgs.lib.genAttrs [
-        "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin"
-      ];
-    in
+  outputs =
     {
+      self,
 
+      nixpkgs,
+      nixpkgs-darwin,
+      nixpkgs-unstable,
 
-      modules = {
-        home-manager = import ./modules/home-manager;
-        global = import ./modules/global;
+      devenv,
+      disko,
+      home-manager,
+      nixvim,
+      ...
+    }@inputs:
+    rec {
+
+      lib = import ./lib {
+        inherit inputs;
+        inherit (self) outputs;
+      };
+
+      homeConfigurations = {
+        "thomas@meili" = lib.mkHome {
+          system = "aarch64-darwin";
+          modules = [ ./home/meili.nix ];
+        };
+
+        "thomas@modgud" = lib.mkHome {
+          system = "x86_64-linux";
+          modules = [ ./home/modgud.nix ];
+        };
       };
 
       nixosConfigurations = {
-        modgud = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; inherit outputs; };
+        modgud = lib.mkSystem {
+          system = "x86_64-linux";
           modules = [ ./hosts/modgud ];
         };
       };
 
-      packages = forAllSystems (system:
-        let
-          pkgs = if builtins.elem "darwin" (builtins.split "\\." system) then
-              nixpkgs-darwin.legacyPackages.${system}
-            else
-              nixpkgs.legacyPackages.${system};
-        in {
-          homeConfigurations = {
-            "thomas@meili" = home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              extraSpecialArgs = { inherit inputs; inherit outputs; };
-              modules = [
-                ./users/thomas
-                ./users/thomas/desktop
-                ./users/thomas/nvim
-              ];
-            };
+      darwinConfigurations = {
+        meili = lib.mkDarwin {
+          system = "aarch64-darwin";
+          modules = [ ./hosts/meili ];
+        };
+      };
 
-            "thomas@modgud" = home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              extraSpecialArgs = { inherit inputs; inherit outputs; };
-              modules = [
-                ./users/thomas
-                ./users/thomas/modgud
-              ];
-            };
-          };
-        } // import ./packages { inherit pkgs; }
-      );
+      modules = import ./modules;
+      overlays = import ./overlays { inherit inputs; };
+
+      packages = lib.forAllSystemsWithPkgs (import ./packages);
+      formatter = lib.forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };
 }

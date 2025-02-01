@@ -1,3 +1,0 @@
-{
-  thomas = import ./thomas.nix;
-}

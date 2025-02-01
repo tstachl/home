@@ -1,3 +1,3 @@
 {
-  ghostty = import ./programs/ghostty.nix;
+  ghostty-darwin = import ./programs/ghostty-darwin.nix;
 }
