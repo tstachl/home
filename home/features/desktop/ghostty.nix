@@ -71,26 +71,6 @@
       window-padding-x = 12;
       window-padding-y = 12;
       window-theme = "ghostty";
-
-      # clearDefaultKeybindings = true;
-      keybind = [
-        "ctrl+a>r=reload_config"
-
-        "ctrl+a>shift+5=new_split:right"
-        "ctrl+a>shift+'=new_split:down"
-
-        "ctrl+j=goto_split:bottom"
-        "ctrl+k=goto_split:top"
-        "ctrl+h=goto_split:left"
-        "ctrl+l=goto_split:right"
-
-        "ctrl+a>z=toggle_split_zoom"
-
-        "ctrl+shift+j=resize_split:down,10"
-        "ctrl+shift+k=resize_split:up,10"
-        "ctrl+shift+h=resize_split:left,10"
-        "ctrl+shift+l=resize_split:right,10"
-      ];
     };
   };
 }

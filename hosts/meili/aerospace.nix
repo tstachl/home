@@ -1,4 +1,45 @@
+{ pkgs, config, ... }:
+
+let
+  cfg = config.services.aerospace;
+  aerospace = "${pkgs.lib.meta.getExe cfg.package}";
+  tmux = "${pkgs.lib.meta.getExe pkgs.tmux}";
+
+  script = pkgs.writeShellScriptBin "aerospace-focus" ''
+    direction="$1"
+
+    if [[ -n "$(${aerospace} list-windows --focused | grep tmux)" ]]; then
+      tmux_dir=""
+
+      case "$direction" in
+        left) tmux_dir="L" ;;
+        down) tmux_dir="D" ;;
+        up) tmux_dir="U" ;;
+        right) tmux_dir="R" ;;
+      esac
+
+      if [[ -n "$tmux_dir" ]]; then
+        ret=$(${tmux} run "#{at_edge} $tmux_dir")
+
+        if [[ $ret -eq 1 ]]; then
+          ${aerospace} focus "$direction"
+        else
+          ${tmux} select-pane "-$tmux_dir"
+        fi
+      fi
+    fi
+
+    ${aerospace} focus "$direction"
+  '';
+
+  aerospace-focus = "${pkgs.lib.meta.getExe script}";
+in
+
 {
+  # TODO: this needs to go to the home-manager config
+
+  environment.systemPackages = [ script ];
+
   services.aerospace = {
     enable = true;
     settings = {
@@ -19,9 +60,9 @@
         alt-5 = "workspace 5";
         alt-b = "workspace B"; # Browser
         alt-e = "workspace E"; # Finder
-        alt-t = "workspace T"; # Terminal
         alt-m = "workspace M"; # Mail
         alt-s = "workspace S"; # Signal
+        alt-t = "workspace T"; # Terminal
         alt-v = "workspace V"; # Video
 
         # moving windows to workspaces
@@ -40,16 +81,16 @@
         alt-shift-f = "fullscreen";
 
         # focus between windows
-        alt-h = "focus left";
-        alt-l = "focus right";
-        alt-k = "focus up";
-        alt-j = "focus down";
+        ctrl-h = "exec-and-forget ${aerospace-focus} left";
+        ctrl-l = "exec-and-forget ${aerospace-focus} right";
+        ctrl-k = "exec-and-forget ${aerospace-focus} up";
+        ctrl-j = "exec-and-forget ${aerospace-focus} down";
 
         # move between windows
-        alt-shift-h = "move left";
-        alt-shift-l = "move right";
-        alt-shift-k = "move up";
-        alt-shift-j = "move down";
+        ctrl-shift-h = "move left";
+        ctrl-shift-l = "move right";
+        ctrl-shift-k = "move up";
+        ctrl-shift-j = "move down";
 
         alt-shift-minus = "resize smart -50";
         alt-shift-equal = "resize smart +50";
