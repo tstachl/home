@@ -15,7 +15,7 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim.url = "github:nix-community/nixvim/nixos-24.11";
@@ -34,6 +34,7 @@
       disko,
       home-manager,
       nixvim,
+
       ...
     }@inputs:
     rec {
@@ -72,7 +73,7 @@
       modules = import ./modules;
       overlays = import ./overlays { inherit inputs; };
 
-      packages = lib.forAllSystemsWithPkgs (import ./packages);
-      formatter = lib.forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      packages = lib.eachSystemWithPkgs (import ./packages);
+      formatter = lib.eachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };
 }

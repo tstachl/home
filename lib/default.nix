@@ -44,16 +44,16 @@ rec {
       extraSpecialArgs = { inherit inputs outputs; };
     };
 
-  forAllSystems = inputs.nixpkgs.lib.genAttrs [
+  eachSystem = inputs.nixpkgs.lib.genAttrs [
     "x86_64-linux"
     "x86_64-darwin"
     "aarch64-linux"
     "aarch64-darwin"
   ];
 
-  forAllSystemsWithPkgs =
+  eachSystemWithPkgs =
     f:
-    forAllSystems (
+    eachSystem (
       system:
       f {
         pkgs = getPkgsForSystem system;
