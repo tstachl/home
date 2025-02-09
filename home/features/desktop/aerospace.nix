@@ -1,9 +1,9 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
-  cfg = config.services.aerospace;
+  cfg = config.programs.aerospace;
   aerospace = "${pkgs.lib.meta.getExe cfg.package}";
-  tmux = "${pkgs.lib.meta.getExe pkgs.tmux}";
+  tmux = "${pkgs.lib.meta.getExe config.programs.tmux.package}";
 
   script = pkgs.writeShellScriptBin "aerospace-focus" ''
     direction="$1"
@@ -36,13 +36,25 @@ let
 in
 
 {
-  # TODO: this needs to go to the home-manager config
+  home.packages = [ script ];
 
-  environment.systemPackages = [ script ];
-
-  services.aerospace = {
+  launchd.agents.aerospace = {
     enable = true;
-    settings = {
+    config = {
+      ProgramArguments = [
+        "${cfg.package}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
+        "--started-at-login"
+      ];
+      KeepAlive = true;
+      RunAtLoad = true;
+    };
+  };
+
+  programs.aerospace = {
+    enable = true;
+    userSettings = {
+      start-at-login = true;
+
       gaps = {
         inner.horizontal = 10;
         inner.vertical = 10;
@@ -105,15 +117,39 @@ in
       };
 
       mode.service.binding = {
-        esc = ["reload-config" "mode main"];
-        r = ["flatten-workspace-tree" "mode main"];
-        f = ["layout floating tiling" "mode main"];
-        backspace = ["close-all-windows-but-current" "mode main"];
+        esc = [
+          "reload-config"
+          "mode main"
+        ];
+        r = [
+          "flatten-workspace-tree"
+          "mode main"
+        ];
+        f = [
+          "layout floating tiling"
+          "mode main"
+        ];
+        backspace = [
+          "close-all-windows-but-current"
+          "mode main"
+        ];
 
-        alt-shift-h = ["join-with left" "mode main"];
-        alt-shift-j = ["join-with down" "mode main"];
-        alt-shift-k = ["join-with up" "mode main"];
-        alt-shift-l = ["join-with right" "mode main"];
+        alt-shift-h = [
+          "join-with left"
+          "mode main"
+        ];
+        alt-shift-j = [
+          "join-with down"
+          "mode main"
+        ];
+        alt-shift-k = [
+          "join-with up"
+          "mode main"
+        ];
+        alt-shift-l = [
+          "join-with right"
+          "mode main"
+        ];
       };
 
       on-window-detected = [

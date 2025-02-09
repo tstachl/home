@@ -3,7 +3,6 @@
   imports = [
     outputs.modules.global.nix-config
 
-    ./aerospace.nix
     ./colima.nix
 
     ./system.nix
