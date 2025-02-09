@@ -5,7 +5,7 @@ let
   aerospace = "${pkgs.lib.meta.getExe cfg.package}";
   tmux = "${pkgs.lib.meta.getExe config.programs.tmux.package}";
 
-  script = pkgs.writeShellScriptBin "aerospace-focus" ''
+  aerospace-focus-pkg = pkgs.writeShellScriptBin "aerospace-focus" ''
     direction="$1"
 
     if [[ -n "$(${aerospace} list-windows --focused | grep tmux)" ]]; then
@@ -32,11 +32,11 @@ let
     ${aerospace} focus "$direction"
   '';
 
-  aerospace-focus = "${pkgs.lib.meta.getExe script}";
+  aerospace-focus = "${pkgs.lib.meta.getExe aerospace-focus-pkg}";
 in
 
 {
-  home.packages = [ script ];
+  home.packages = [ aerospace-focus-pkg ];
 
   launchd.agents.aerospace = {
     enable = true;
