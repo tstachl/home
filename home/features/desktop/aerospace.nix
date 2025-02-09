@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, ... }:
 
 let
   cfg = config.programs.aerospace;
@@ -73,6 +73,7 @@ in
         alt-b = "workspace B"; # Browser
         alt-e = "workspace E"; # Finder
         alt-m = "workspace M"; # Mail
+        alt-n = "workspace N"; # Notes
         alt-s = "workspace S"; # Signal
         alt-t = "workspace T"; # Terminal
         alt-v = "workspace V"; # Video
@@ -87,6 +88,7 @@ in
         alt-shift-e = "move-node-to-workspace E";
         alt-shift-t = "move-node-to-workspace T";
         alt-shift-m = "move-node-to-workspace M";
+        alt-shift-n = "move-node-to-workspace N";
         alt-shift-s = "move-node-to-workspace S";
         alt-shift-v = "move-node-to-workspace V";
 
