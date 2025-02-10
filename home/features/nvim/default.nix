@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ inputs, lib, pkgs, ... }:
 let
   # Define `recursiveUpdateMany` if not present
   recursiveUpdateMany = sets: lib.fold lib.attrsets.recursiveUpdate { } sets;
@@ -9,8 +9,30 @@ let
       enable = true;
       defaultEditor = true;
       vimdiffAlias = true;
+
+      colorscheme = "nord";
+
+      extraPlugins = with pkgs; [
+        (vimUtils.buildVimPlugin rec {
+          pname = "nord.nvim";
+          version = "1.1.0";
+          src = fetchFromGitHub {
+            owner = "gbprod";
+            repo = "nord.nvim";
+            rev = "v${version}";
+            sha256 = "sha256-gSAXDXhxoigWl6qMAJ0yX59bnkOehVA1MADMeHoTHDo=";
+          };
+          meta.homepage = "https://github.com/gbprod/nord.nvim";
+        })
+      ];
+
+      extraConfigLua = ''
+        require("nord").setup({
+          transparent = true,
+        })
+      '';
     })
-    (import ./colorschemes.nix)
+
     (import ./keymaps.nix)
     (import ./options.nix)
     (import ./plugins.nix)
