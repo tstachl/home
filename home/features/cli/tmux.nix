@@ -38,6 +38,17 @@
           bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
         '';
       }
+      {
+        plugin = resurrect;
+        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+      }
+      {
+        plugin = continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-save-interval '60' # minutes
+        '';
+      }
     ];
 
     extraConfig = ''
