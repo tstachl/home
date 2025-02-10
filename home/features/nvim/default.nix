@@ -10,8 +10,6 @@ let
       defaultEditor = true;
       vimdiffAlias = true;
 
-      colorscheme = "nord";
-
       extraPlugins = with pkgs; [
         (vimUtils.buildVimPlugin rec {
           pname = "nord.nvim";
@@ -30,6 +28,7 @@ let
         require("nord").setup({
           transparent = true,
         })
+        vim.cmd.colorscheme("nord")
       '';
     })
 
