@@ -32,36 +32,83 @@
 
       colors = {
         primary = {
-          background = "#1f1f28";
-          foreground = "#dcd7ba";
+          background = "#303446";
+          foreground = "#c6d0f5";
+          dim_foreground = "#838ba7";
+          bright_foreground = "#c6d0f5";
         };
 
-        normal = {
-          black = "#090618";
-          red = "#c34043";
-          green = "#76946a";
-          yellow = "#c0a36e";
-          blue = "#7e9cd8";
-          magenta = "#957fb8";
-          cyan = "#6a9589";
-          white = "#c8c093";
+        cursor = {
+          text = "#303446";
+          cursor = "#f2d5cf";
         };
 
-        bright = {
-          black = "#727169";
-          red = "#e82424";
-          green = "#98bb6c";
-          yellow = "#e6c384";
-          blue = "#7fb4ca";
-          magenta = "#938aa9";
-          cyan = "#7aa89f";
-          white = "#dcd7ba";
+        vi_mode_cursor = {
+          text = "#303446";
+          cursor = "#babbf1";
+        };
+
+        search.matches = {
+          foreground = "#303446";
+          background = "#a5adce";
+        };
+
+        search.focused_match = {
+          foreground = "#303446";
+          background = "#a6d189";
+        };
+
+        footer_bar = {
+          foreground = "#303446";
+          background = "#a5adce";
+        };
+
+        hints.start = {
+          foreground = "#303446";
+          background = "#e5c890";
+        };
+
+        hints.end = {
+          foreground = "#303446";
+          background = "#a5adce";
         };
 
         selection = {
-          background = "#2d4f67";
-          foreground = "#c8c093";
+          text = "#303446";
+          background = "#f2d5cf";
         };
+
+        normal = {
+          black = "#51576d";
+          red = "#e78284";
+          green = "#a6d189";
+          yellow = "#e5c890";
+          blue = "#8caaee";
+          magenta = "#f4b8e4";
+          cyan = "#81c8be";
+          white = "#b5bfe2";
+        };
+
+        bright = {
+          black = "#626880";
+          red = "#e78284";
+          green = "#a6d189";
+          yellow = "#e5c890";
+          blue = "#8caaee";
+          magenta = "#f4b8e4";
+          cyan = "#81c8be";
+          white = "#a5adce";
+        };
+
+        # indexed_colors = {
+        #   index = 16;
+        #   color = "#ef9f76";
+        # };
+        #
+        # indexed_colors = {
+        #   index = 17;
+        #   color = "#f2d5cf";
+        # };
       };
 
       bell = {

@@ -16,6 +16,36 @@
     enableFishIntegration = true;
 
     themes = {
+      catppuccin-frappe = {
+        palette = [
+          "0=#51576d"
+          "1=#e78284"
+          "2=#a6d189"
+          "3=#e5c890"
+          "4=#8caaee"
+          "5=#f4b8e4"
+          "6=#81c8be"
+          "7=#b5bfe2"
+          "8=#626880"
+          "9=#e78284"
+          "10=#a6d189"
+          "11=#e5c890"
+          "12=#8caaee"
+          "13=#f4b8e4"
+          "14=#81c8be"
+          "15=#a5adce"
+        ];
+
+        background = "303446";
+        foreground = "c6d0f5";
+
+        cursor-color = "f2d5cf";
+        cursor-text = "303446";
+
+        selection-background = "44495d";
+        selection-foreground = "c6d0f5";
+      };
+
       iceberg-dark = {
         background = "161821";
         foreground = "c6c8d1";
@@ -57,12 +87,12 @@
     settings = {
       command = "${pkgs.lib.meta.getExe config.programs.fish.package}";
 
-      background-opacity = 0.8;
+      background-opacity = 0.9;
       font-family = "FiraCode Nerd Font";
       font-size = 11.0;
 
       macos-titlebar-style = "hidden";
-      theme = "iceberg-dark";
+      theme = "catppuccin-frappe";
 
       window-padding-x = 12;
       window-padding-y = 12;

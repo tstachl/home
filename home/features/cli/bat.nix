@@ -1,11 +1,42 @@
 { pkgs, ... }:
+
+let
+  catppuccin-src = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "bat";
+    rev = "699f60f";
+    sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
+  };
+in
+
 {
   programs.bat = {
     enable = true;
     config = {
-      theme = "kanagawa";
+      theme = "catppuccin-frappe";
     };
+
     themes = {
+      catppuccin-latte = {
+        src = catppuccin-src;
+        file = "/themes/Catppuccin Latte.tmTheme";
+      };
+
+      catppuccin-frappe = {
+        src = catppuccin-src;
+        file = "/themes/Catppuccin Frappe.tmTheme";
+      };
+
+      catppuccin-macchiato = {
+        src = catppuccin-src;
+        file = "/themes/Catppuccin Macchiato.tmTheme";
+      };
+
+      catppuccin-mocha = {
+        src = catppuccin-src;
+        file = "/themes/Catppuccin Mocha.tmTheme";
+      };
+
       nord = {
         src = pkgs.fetchFromGitHub {
           owner = "crabique";

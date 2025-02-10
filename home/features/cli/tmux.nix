@@ -23,7 +23,12 @@
 
     plugins = with pkgs.tmuxPlugins; [
       pkgs.more-tmux-plugins.tmux-select-pane-no-wrap
-      nord
+      {
+        plugin = catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavor 'frappe' # latte, frappe, macchiato or mocha
+        '';
+      }
       vim-tmux-navigator
       {
         plugin = yank;
