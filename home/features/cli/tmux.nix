@@ -55,7 +55,7 @@
       set-option -sa terminal-features ',xterm-256color:RGB'
 
       # default layout
-      set-hook -g after-new-window 'split-window -h -p 30; split-window -v -p 66; split-window -v -p 50'
+      set-hook -g after-new-window 'split-window -v -p 20'
     '';
   };
 }
