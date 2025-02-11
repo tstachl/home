@@ -31,6 +31,12 @@
       }
       vim-tmux-navigator
       {
+        plugin = tmux-floax;
+        extraConfig = ''
+          set -g @floax-bind '-n C-`'
+        '';
+      }
+      {
         plugin = yank;
         extraConfig = ''
           bind-key -T copy-mode-vi v send-keys -X begin-selection
