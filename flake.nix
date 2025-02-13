@@ -61,6 +61,11 @@
           system = "x86_64-linux";
           modules = [ ./hosts/modgud ];
         };
+
+        odin = lib.mkSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/odin ];
+        };
       };
 
       darwinConfigurations = {

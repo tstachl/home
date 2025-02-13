@@ -13,10 +13,14 @@
   xdg.enable = true;
 
   home = {
+    # FIXME: this needs to leave as soon as `ghostty` is merged into 24.11.
+    enableNixpkgsReleaseCheck = false;
+
     username = "thomas";
     homeDirectory = if pkgs.stdenv.isDarwin then "/Users/thomas" else "/home/thomas";
 
     packages = with pkgs; [
+      cachix
       curl
       fd
       ripgrep

@@ -59,4 +59,11 @@ rec {
         pkgs = getPkgsForSystem system;
       }
     );
+
+  print =
+    text:
+    let
+      json = builtins.toJSON text;
+    in
+    builtins.trace (builtins.fromJSON json) (builtins.fromJSON json);
 }

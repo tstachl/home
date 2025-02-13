@@ -19,6 +19,8 @@
 
   homebrew = {
     casks = [
+      "android-studio"
+
       # "mac-mouse-fix"
       # "alacritty" # => we're using the home-manager package now
       # "bitwarden"
@@ -41,6 +43,7 @@
       # "tailscale"
       "tor-browser"
       "vlc"
+      "zen-browser"
       # "whatsapp"
       # "krunkit"
     ];

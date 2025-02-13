@@ -1,3 +1,17 @@
+{ pkgs, ... }:
+
+let
+  shell-pkg = pkgs.writeShellScriptBin "shell" ''
+    case "$STARSHIP_SHELL" in
+      fish) echo 🐟 ;;
+      nu) echo 🚀 ;;
+      zsh) echo 🐚 ;;
+      bash) echo 🐻 ;;
+      *) echo "" ;;
+    esac
+  '';
+in
+
 {
   programs.starship = {
     enable = true;
@@ -6,6 +20,23 @@
     enableTransience = true;
 
     settings = {
+      character.success_symbol = "[➜](bold green)";
+      character.error_symbol = "[✗](bold red)";
+
+      shell = {
+        disabled = false;
+        fish_indicator = "🐟";
+        nu_indicator = "☘️";
+        bash_indicator = "🐻";
+        zsh_indicator = "🐚";
+      };
+
+      # custom.shell = {
+      #   command = "${pkgs.lib.meta.getExe shell-pkg}";
+      #   format = "$all$shell$character";
+      #   when = "true";
+      # };
+
       palettes.catppuccin_frappe = {
         rosewater = "#f2d5cf";
         flamingo = "#eebebe";

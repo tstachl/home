@@ -28,6 +28,7 @@ in
     enable = mkDefault true;
     enableBashIntegration = true;
     enableFishIntegration = true;
+    enableNushellIntegration = true;
     enableSshSupport = true;
     pinentryFlavor = "curses";
     sshKeys = [
