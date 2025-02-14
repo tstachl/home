@@ -1,9 +1,38 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
+
+let
+  ghosttyCatppuccinSrc = pkgs.fetchFromGitHub {
+    owner = "catppuccin";
+    repo = "ghostty";
+    rev = "9e38fc2";
+    sha256 = "sha256-RlgTeBkjEvZpkZbhIss3KxQcvt0goy4WU+w9d2XCOnw=";
+  };
+in
+
 {
+  xdg.configFile = {
+    "ghostty/themes/catppuccin-frappe.conf".text =
+      lib.strings.fileContents
+        (ghosttyCatppuccinSrc + "/themes/catppuccin-frappe.conf");
+    
+    "ghostty/themes/catppuccin-latte.conf".text =
+      lib.strings.fileContents
+        (ghosttyCatppuccinSrc + "/themes/catppuccin-latte.conf");
+
+    "ghostty/themes/catppuccin-macchiato.conf".text =
+      lib.strings.fileContents
+        (ghosttyCatppuccinSrc + "/themes/catppuccin-macchiato.conf");
+
+    "ghostty/themes/catppuccin-mocha.conf".text =
+      lib.strings.fileContents
+        (ghosttyCatppuccinSrc + "/themes/catppuccin-mocha.conf");
+  };
+
   programs.ghostty = {
     enable = true;
     package = null;
@@ -16,35 +45,35 @@
     enableFishIntegration = true;
 
     themes = {
-      catppuccin-frappe = {
-        palette = [
-          "0=#51576d"
-          "1=#e78284"
-          "2=#a6d189"
-          "3=#e5c890"
-          "4=#8caaee"
-          "5=#f4b8e4"
-          "6=#81c8be"
-          "7=#b5bfe2"
-          "8=#626880"
-          "9=#e78284"
-          "10=#a6d189"
-          "11=#e5c890"
-          "12=#8caaee"
-          "13=#f4b8e4"
-          "14=#81c8be"
-          "15=#a5adce"
-        ];
-
-        background = "303446";
-        foreground = "c6d0f5";
-
-        cursor-color = "f2d5cf";
-        cursor-text = "303446";
-
-        selection-background = "44495d";
-        selection-foreground = "c6d0f5";
-      };
+      # catppuccin-frappe = {
+      #   palette = [
+      #     "0=#51576d"
+      #     "1=#e78284"
+      #     "2=#a6d189"
+      #     "3=#e5c890"
+      #     "4=#8caaee"
+      #     "5=#f4b8e4"
+      #     "6=#81c8be"
+      #     "7=#b5bfe2"
+      #     "8=#626880"
+      #     "9=#e78284"
+      #     "10=#a6d189"
+      #     "11=#e5c890"
+      #     "12=#8caaee"
+      #     "13=#f4b8e4"
+      #     "14=#81c8be"
+      #     "15=#a5adce"
+      #   ];
+      #
+      #   background = "232634";
+      #   foreground = "c6d0f5";
+      #
+      #   cursor-color = "f2d5cf";
+      #   cursor-text = "303446";
+      #
+      #   selection-background = "44495d";
+      #   selection-foreground = "c6d0f5";
+      # };
 
       iceberg-dark = {
         background = "161821";
@@ -92,10 +121,12 @@
       font-size = 11.0;
 
       macos-titlebar-style = "hidden";
-      theme = "catppuccin-frappe";
+      theme = "catppuccin-mocha";
 
-      window-padding-x = 12;
-      window-padding-y = 12;
+      window-padding-balance = true;
+      window-padding-color = "extend";
+      window-padding-x = 5;
+      window-padding-y = 0;
       window-theme = "ghostty";
     };
   };
