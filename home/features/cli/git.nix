@@ -11,9 +11,9 @@
     userEmail = "i@t5.st";
 
     signing = {
-      gpgPath = "${pkgs.gnupg}/bin/gpg";
       key = "ED5EAAA8E895B23A";
       signByDefault = true;
+      signer = "${pkgs.gnupg}/bin/gpg";
     };
 
     aliases = {
