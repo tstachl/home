@@ -1,7 +1,12 @@
 {
   plugins.telescope = {
     enable = true;
+
     settings.pickers.find_files.follow = true;
+
+    extensions.media-files.enable = true;
+    extensions.media-files.settings.find_cmd = "rg";
+
     extensions.fzf-native.enable = true;
     extensions.ui-select.enable = true;
   };
