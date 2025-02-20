@@ -6,7 +6,6 @@
     ./fish.nix
     ./fzf.nix
     ./git.nix
-    ./github.nix
     ./gnupg.nix
     ./nushell.nix
     ./ssh.nix

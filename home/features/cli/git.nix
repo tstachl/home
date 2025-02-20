@@ -3,12 +3,28 @@
   home.packages = [
     pkgs.git
     pkgs.git-crypt
+    pkgs.codeberg-cli
   ];
+
+  programs.gh.enable = true;
 
   programs.git = {
     enable = true;
     userName = "Thomas Stachl";
     userEmail = "i@t5.st";
+
+    includes = [{
+      condition = "gitdir/i:~/workspace/aesir/**";
+      contents = {
+        core.sshCommand = "ssh -i ~/.ssh/id_aesirdev";
+        user = {
+          email = "dev@aesirdev.com";
+          name = "Æsir Dev";
+          signingKey = "58145313C9636027";
+        };
+        commit.gpgSign = true;
+      };
+    }];
 
     signing = {
       key = "ED5EAAA8E895B23A";

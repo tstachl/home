@@ -6,9 +6,6 @@
     enableTransience = true;
 
     settings = {
-      character.success_symbol = "[➜](bold green)";
-      character.error_symbol = "[✗](bold red)";
-
       shell = {
         disabled = false;
         fish_indicator = "🐟";
