@@ -29,6 +29,7 @@
           set -g @catppuccin_flavor 'frappe' # latte, frappe, macchiato or mocha
         '';
       }
+      vim-tmux-focus-events
       vim-tmux-navigator
       {
         plugin = tmux-floax;

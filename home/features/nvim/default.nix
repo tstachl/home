@@ -22,6 +22,7 @@ let
           };
           meta.homepage = "https://github.com/gbprod/nord.nvim";
         })
+        vimPlugins.vim-tmux-focus-events
       ];
 
       extraConfigLua = ''
