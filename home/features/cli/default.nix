@@ -7,6 +7,7 @@
     ./fzf.nix
     ./git.nix
     ./gnupg.nix
+    ./nostr.nix
     ./nushell.nix
     ./ssh.nix
     ./starship.nix

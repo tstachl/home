@@ -19,20 +19,20 @@
 
   homebrew = {
     casks = [
-      "android-studio"
-
+      # "android-studio"
       # "mac-mouse-fix"
       # "alacritty" # => we're using the home-manager package now
       # "bitwarden"
-      # "brave-browser"
+      "brave-browser"
       # "docker"
       # "deepl"
       "ghostty"
       # "hot"
       # "ledger-live"
       # "mullvadvpn"
-      "obsidian"
-      "openaudible"
+      # "obsidian"
+      # "openaudible"
+      "orbstack"
 
       "proton-drive"
       "proton-mail-bridge"
@@ -40,10 +40,11 @@
       "protonvpn"
 
       "signal"
-      # "tailscale"
-      "tor-browser"
+      "tailscale"
+      # "tor-browser"
+      # "utm"
       "vlc"
-      "zen-browser"
+      "zen"
       # "whatsapp"
       # "krunkit"
     ];
@@ -66,6 +67,7 @@
     };
 
     enable = true;
+    global.autoUpdate = true;
     onActivation.autoUpdate = true;
     onActivation.cleanup = "zap";
   };

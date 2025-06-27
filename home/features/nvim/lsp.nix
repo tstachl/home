@@ -129,7 +129,7 @@
 
       denols = {
         enable = true;
-        rootDir = "require('lspconfig').util.root_pattern('deno.json')";
+        rootDir = "require('lspconfig').util.root_pattern('deno.lock')";
         extraOptions.init_options = {
           lint = true;
           unstable = true;
@@ -152,13 +152,6 @@
       };
 
       volar.enable = true;
-      #   rootDir = ''
-      #     # root_pattern = { 'vite.config.ts', 'nuxt.config.ts' },
-      #
-      #
-      #     require('lspconfig').util.root_pattern("vite.config.mts")
-      #     '';
-      # };
     };
   };
 }

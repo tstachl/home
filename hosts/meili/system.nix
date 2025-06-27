@@ -1,5 +1,9 @@
 {
+  nix.enable = true;
+
   system = {
+    primaryUser = "thomas";
+
     keyboard = {
       enableKeyMapping = true;
       userKeyMapping = [
@@ -93,6 +97,6 @@
     rosetta.enable = true;
   };
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   security.pam.enablePamReattach = true;
 }

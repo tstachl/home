@@ -5,6 +5,8 @@
     ./features/cli
     ./features/desktop
     ./features/nvim
+
+    # ./features/mail.nix
   ];
 
   programs.fish.interactiveShellInit = ''

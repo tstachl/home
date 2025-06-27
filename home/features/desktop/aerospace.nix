@@ -155,25 +155,34 @@ in
       };
 
       on-window-detected = [
+        # {
+        #   "if".app-id = "org.whispersystems.signal-desktop";
+        #   check-further-callbacks = false;
+        #   run = [ "move-node-to-workspace S" ];
+        # }
+        # {
+        #   "if".app-id = "com.apple.finder";
+        #   check-further-callbacks = false;
+        #   run = [ "move-node-to-workspace E" ];
+        # }
+        # {
+        #   "if".app-id = "com.apple.mail";
+        #   check-further-callbacks = false;
+        #   run = [ "move-node-to-workspace M" ];
+        # }
+        # {
+        #   "if".app-id = "com.mitchellh.ghostty";
+        #   check-further-callbacks = false;
+        #   run = [ "move-node-to-workspace T" ];
+        # }
+        # disable on "Picture-in-Picture"
         {
-          "if".app-id = "org.whispersystems.signal-desktop";
           check-further-callbacks = false;
-          run = [ "move-node-to-workspace S" ];
-        }
-        {
-          "if".app-id = "com.apple.finder";
-          check-further-callbacks = false;
-          run = [ "move-node-to-workspace E" ];
-        }
-        {
-          "if".app-id = "com.apple.mail";
-          check-further-callbacks = false;
-          run = [ "move-node-to-workspace M" ];
-        }
-        {
-          "if".app-id = "com.mitchellh.ghostty";
-          check-further-callbacks = false;
-          run = [ "move-node-to-workspace T" ];
+          "if" = {
+            app-id = "app.zen-browser.zen";
+            window-title-regex-substring = "Picture-in-Picture";
+          };
+          run = [ "layout floating" ];
         }
       ];
     };

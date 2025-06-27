@@ -14,11 +14,6 @@
 
   home.packages = [ pkgs.logseq ];
 
-  home.file.".logseq/config/plugins.edn".text = ''
-    {:logseq-vim-shortcuts {:version "v0.1.22", :repo "vipzhicheng/logseq-plugin-vim-shortcuts", :effect true,
-    :theme false}}
-  '';
-
   home.file.".logseq/config/config.edn".text = ''
     {:meta/version 1
 
@@ -48,7 +43,7 @@
      ;; Default value: "MMM do, yyyy"
      ;; e.g., "Jan 19th, 2038"
      ;; Example usage e.g., "Tue 19th, Jan 2038"
-     :journal/page-title-format "EEEE, dd.MM.yyyy"
+     :journal/page-title-format "yyyy/MM/dd"
 
      ;; Specify the journal filename format using a valid date format string.
      ;; !Warning:
