@@ -14,10 +14,12 @@
     {
       key = "<S-Tab>";
       action.__raw = ''
-        if require("copilot.suggestion").is_visible() then
-          require("copilot.suggestion").accept()
-        else
-          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
+        function()
+          if require("copilot.suggestion").is_visible() then
+            require("copilot.suggestion").accept()
+          else
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true), "n", false)
+          end
         end
       '';
       mode = "i";
