@@ -129,7 +129,6 @@
 
       denols = {
         enable = true;
-        rootDir = "require('lspconfig').util.root_pattern('deno.lock')";
         extraOptions.init_options = {
           lint = true;
           unstable = true;
@@ -146,9 +145,6 @@
       ts_ls = {
         enable = true;
         extraOptions.single_file_support = false;
-        rootDir = ''
-          require('lspconfig').util.root_pattern("tsconfig.json")
-        '';
       };
 
       volar.enable = true;

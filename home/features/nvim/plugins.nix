@@ -4,6 +4,7 @@
     # ./plugins/avante.nix
     ./plugins/conform.nix
     ./plugins/comment.nix
+    ./plugins/copilot.nix
     ./plugins/fidget.nix
     ./plugins/gitsigns.nix
     ./plugins/indent-blankline.nix

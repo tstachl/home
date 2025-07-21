@@ -3,6 +3,9 @@
   globals.maplocalleader = " ";
   globals.have_nerd_font = true;
 
+  # Make system clipboard work
+  clipboard.register = "unnamedplus";
+
   opts = {
     # Make line numbers default
     number = true;

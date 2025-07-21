@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 
 let
   cfg = config.programs.aerospace;
@@ -39,7 +39,7 @@ in
   home.packages = [ aerospace-focus-pkg ];
 
   launchd.agents.aerospace = {
-    enable = true;
+    enable = lib.mkForce true;
     config = {
       ProgramArguments = [
         "${cfg.package}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
