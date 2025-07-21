@@ -12,7 +12,7 @@
   #   };
   # };
 
-  home.packages = [ pkgs.logseq ];
+  # home.packages = [ pkgs.logseq ];
 
   home.file.".logseq/config/config.edn".text = ''
     {:meta/version 1
