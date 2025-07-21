@@ -1,5 +1,6 @@
 {
   imports = [
+    ./aider-chat.nix
     ./bash.nix
     ./bat.nix
     ./direnv.nix
@@ -9,6 +10,7 @@
     ./gnupg.nix
     ./nostr.nix
     ./nushell.nix
+    ./pass.nix
     ./ssh.nix
     ./starship.nix
     ./tmux.nix

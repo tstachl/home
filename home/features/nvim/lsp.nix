@@ -132,6 +132,9 @@
         extraOptions.init_options = {
           lint = true;
           unstable = true;
+          root_dir.__raw = ''
+            require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "deno.lock")
+          '';
         };
       };
 
@@ -144,7 +147,21 @@
 
       ts_ls = {
         enable = true;
-        extraOptions.single_file_support = false;
+        extraOptions = {
+          single_file_support = false;
+          root_dir.__raw = ''
+            function(fname)
+              local util = require("lspconfig.util")
+              local deno_root = util.root_pattern("deno.json", "deno.jsonc", "deno.lock")(fname)
+
+              if deno_root then
+                return nil
+              end
+
+              return util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")(fname)
+            end
+          '';
+        };
       };
 
       volar.enable = true;
