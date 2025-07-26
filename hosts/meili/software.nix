@@ -9,6 +9,8 @@
     gnupg
     jq
     ripgrep
+    ollama
+    rlama
 
     unstable.devenv
   ];
@@ -30,7 +32,7 @@
       # "hot"
       # "ledger-live"
       # "mullvadvpn"
-      # "obsidian"
+      "obsidian"
       # "openaudible"
       "orbstack"
 
@@ -40,7 +42,7 @@
       "protonvpn"
 
       "signal"
-      "tailscale"
+      "tailscale-app"
       # "tor-browser"
       # "utm"
       "vlc"
@@ -54,7 +56,7 @@
       "Yubico Authenticator" = 1497506650;
       # "UTM Virtual Machines" = 1538878817; costs $9.99 in the app store
       # "Speechify" = 1624912180;
-      # "DaVinci Resolve" = 571213070;
+      "DaVinci Resolve" = 571213070;
       # "Orbot" = 1609461599;
 
       # Safari Extensions

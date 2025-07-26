@@ -179,8 +179,8 @@ in
         {
           check-further-callbacks = false;
           "if" = {
-            app-id = "app.zen-browser.zen";
-            window-title-regex-substring = "Picture-in-Picture";
+            app-id = "com.brave.Browser";
+            window-title-regex-substring = "Picture in Picture";
           };
           run = [ "layout floating" ];
         }

@@ -60,6 +60,7 @@
   };
 
   users.users.thomas.home = "/Users/thomas";
+  ids.gids.nixbld = 350;
 
   networking = {
     hostName = "meili";
