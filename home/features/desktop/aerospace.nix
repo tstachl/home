@@ -5,40 +5,10 @@
 }:
 let
   cfg = config.programs.aerospace;
-  aerospace = "${pkgs.lib.meta.getExe cfg.package}";
-  tmux = "${pkgs.lib.meta.getExe config.programs.tmux.package}";
-
-  aerospace-focus-pkg = pkgs.writeShellScriptBin "aerospace-focus" ''
-    direction="$1"
-
-    if [[ -n "$(${aerospace} list-windows --focused | grep tmux)" ]]; then
-      tmux_dir=""
-
-      case "$direction" in
-        left) tmux_dir="L" ;;
-        down) tmux_dir="D" ;;
-        up) tmux_dir="U" ;;
-        right) tmux_dir="R" ;;
-      esac
-
-      if [[ -n "$tmux_dir" ]]; then
-        ret=$(${tmux} run "#{at_edge} $tmux_dir")
-
-        if [[ $ret -eq 1 ]]; then
-          ${aerospace} focus "$direction"
-        else
-          ${tmux} select-pane "-$tmux_dir"
-        fi
-      fi
-    fi
-
-    ${aerospace} focus "$direction"
-  '';
-
-  aerospace-focus = "${pkgs.lib.meta.getExe aerospace-focus-pkg}";
+  aerospace-focus = "${lib.getExe pkgs.aerospace-tmux-focus}";
 in
 {
-  home.packages = [ aerospace-focus-pkg ];
+  home.packages = [ pkgs.aerospace-tmux-focus ];
 
   launchd.agents.aerospace = {
     enable = lib.mkForce true;
@@ -56,15 +26,6 @@ in
     enable = true;
     userSettings = {
       start-at-login = true;
-
-      gaps = {
-        inner.horizontal = 10;
-        inner.vertical = 10;
-        outer.left = 10;
-        outer.bottom = 10;
-        outer.top = 10;
-        outer.right = 10;
-      };
 
       mode.main.binding = {
         alt-1 = "workspace 1";
@@ -94,8 +55,6 @@ in
         alt-shift-s = "move-node-to-workspace S";
         alt-shift-v = "move-node-to-workspace V";
 
-        alt-shift-f = "fullscreen";
-
         # focus between windows
         ctrl-h = "exec-and-forget ${aerospace-focus} left";
         ctrl-l = "exec-and-forget ${aerospace-focus} right";
@@ -111,72 +70,13 @@ in
         alt-shift-minus = "resize smart -50";
         alt-shift-equal = "resize smart +50";
 
-        alt-tab = "workspace-back-and-forth";
-        alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
-
         alt-shift-semicolon = "mode service";
 
         alt-slash = "layout tiles horizontal vertical";
         alt-comma = "layout accordion horizontal vertical";
       };
 
-      mode.service.binding = {
-        esc = [
-          "reload-config"
-          "mode main"
-        ];
-        r = [
-          "flatten-workspace-tree"
-          "mode main"
-        ];
-        f = [
-          "layout floating tiling"
-          "mode main"
-        ];
-        backspace = [
-          "close-all-windows-but-current"
-          "mode main"
-        ];
-
-        alt-shift-h = [
-          "join-with left"
-          "mode main"
-        ];
-        alt-shift-j = [
-          "join-with down"
-          "mode main"
-        ];
-        alt-shift-k = [
-          "join-with up"
-          "mode main"
-        ];
-        alt-shift-l = [
-          "join-with right"
-          "mode main"
-        ];
-      };
-
       on-window-detected = [
-        # {
-        #   "if".app-id = "org.whispersystems.signal-desktop";
-        #   check-further-callbacks = false;
-        #   run = [ "move-node-to-workspace S" ];
-        # }
-        # {
-        #   "if".app-id = "com.apple.finder";
-        #   check-further-callbacks = false;
-        #   run = [ "move-node-to-workspace E" ];
-        # }
-        # {
-        #   "if".app-id = "com.apple.mail";
-        #   check-further-callbacks = false;
-        #   run = [ "move-node-to-workspace M" ];
-        # }
-        # {
-        #   "if".app-id = "com.mitchellh.ghostty";
-        #   check-further-callbacks = false;
-        #   run = [ "move-node-to-workspace T" ];
-        # }
         # disable on "Picture-in-Picture"
         {
           check-further-callbacks = false;
