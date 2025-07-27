@@ -44,6 +44,18 @@ rec {
       extraSpecialArgs = { inherit inputs outputs; };
     };
 
+  mkDevenvShell = 
+    config:
+    eachSystemWithPkgs (
+      { pkgs }:
+      {
+        default = inputs.devenv.lib.mkShell {
+          inherit inputs pkgs;
+          modules = [ config ];
+        };
+      }
+    );
+
   eachSystem = inputs.nixpkgs.lib.genAttrs [
     "x86_64-linux"
     "x86_64-darwin"
