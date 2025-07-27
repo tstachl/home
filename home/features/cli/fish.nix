@@ -4,7 +4,6 @@
 }: {
   programs.fish = {
     enable = true;
-    shellAliases = import ./shell-aliases.nix;
 
     interactiveShellInit = lib.mkAfter ''
       fish_config theme choose "Catppuccin Frappe"

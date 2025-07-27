@@ -1,7 +1,6 @@
 {
   imports = [
     ./aider-chat.nix
-    ./bash.nix
     ./bat.nix
     ./direnv.nix
     ./fish.nix
@@ -9,13 +8,14 @@
     ./git.nix
     ./gnupg.nix
     ./nostr.nix
-    ./nushell.nix
     ./pass.nix
     ./ssh.nix
     ./starship.nix
     ./tmux.nix
     ./yazi.nix
     ./zoxide.nix
-    ./zsh.nix
   ];
+
+  programs.bash.enable = true;
+  programs.zsh.enable = true;
 }
