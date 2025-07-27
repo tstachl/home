@@ -1,14 +1,8 @@
 { pkgs
 , config
+, lib
 , ...
 }: {
-  # - WARNING Neither Tc nor RGB capability set. True colors are disabled. |'termguicolors'| won't work properly.
-  #   - ADVICE:
-  #     - Put this in your ~/.tmux.conf and replace XXX by your $TERM outside of tmux:
-  #       set-option -sa terminal-features ',XXX:RGB'
-  #     - For older tmux versions use this instead:
-  #       set-option -ga terminal-overrides ',XXX:Tc'
-
   programs.tmux = {
     sensibleOnTop = false;
 
@@ -19,8 +13,7 @@
     keyMode = "vi";
     mouse = true;
     prefix = "C-a";
-    # shell = "${pkgs.fish}/bin/fish";
-    shell = "${pkgs.lib.meta.getExe config.programs.fish.package}";
+    shell = "${lib.getExe config.programs.fish.package}";
     terminal = "tmux-256color";
 
     plugins = with pkgs.tmuxPlugins; [
@@ -29,6 +22,8 @@
         plugin = catppuccin;
         extraConfig = ''
           set -g @catppuccin_flavor 'frappe' # latte, frappe, macchiato or mocha
+          set -g @catppuccin_window_text " #W"
+          set -g @catppuccin_window_current_text " #W"
         '';
       }
       vim-tmux-focus-events

@@ -1,21 +1,13 @@
-{ lib
-, pkgs
-, ...
-}: {
-  programs.fish = {
-    enable = true;
+{ lib, pkgs, ... }:
+{
+  programs.fish.enable = true;
 
-    interactiveShellInit = lib.mkAfter ''
-      fish_config theme choose "Catppuccin Frappe"
-    '';
-  };
-
-  xdg.configFile."fish/themes/Catppuccin Frappe.theme".text = lib.strings.fileContents (pkgs.fetchFromGitHub
-    {
-      owner = "catppuccin";
-      repo = "fish";
-      rev = "cc8e4d8";
-      sha256 = "sha256-udiU2TOh0lYL7K7ylbt+BGlSDgCjMpy75vQ98C1kFcc=";
-    }
-  + "/themes/Catppuccin Frappe.theme");
+  xdg.configFile."fish/conf.d/kanagawa.fish".text =
+    lib.strings.fileContents (pkgs.fetchFromGitHub
+      {
+        owner = "rebelot";
+        repo = "kanagawa.nvim";
+        rev = "83e377c";
+        sha256 = "sha256-IBZFfQRNvIEIFiQF5Gm4LGTmRc2VCWy4Gx51RhtDNDM=";
+      } + "/extras/fish/kanagawa.fish");
 }

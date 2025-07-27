@@ -2,48 +2,39 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
-    enableNushellIntegration = true;
     enableTransience = true;
 
     settings = {
-      shell = {
-        disabled = false;
-        fish_indicator = "🐟";
-        nu_indicator = "☘️";
-        bash_indicator = "🐻";
-        zsh_indicator = "🐚";
+      palettes.kanagawa = {
+        rosewater = "#DCD7BA";
+        flamingo = "#E6C384";
+        pink = "#957FB8";
+        mauve = "#938AA9";
+        red = "#C34043";
+        maroon = "#E82424";
+        peach = "#C0A36E";
+        yellow = "#E6C384";
+        green = "#76946A";
+        teal = "#6A9589";
+        sky = "#7AA89F";
+        sapphire = "#7FB4CA";
+        blue = "#7E9CD8";
+        lavender = "#72A7BC";
+        text = "#DCD7BA";
+        subtext1 = "#C8C093";
+        subtext0 = "#98BB6C";
+        overlay2 = "#727169";
+        overlay1 = "#727169";
+        overlay0 = "#727169";
+        surface2 = "#2D4F67";
+        surface1 = "#2D4F67";
+        surface0 = "#2D4F67";
+        base = "#1F1F28";
+        mantle = "#16161D";
+        crust = "#16161D";
       };
 
-      palettes.catppuccin_frappe = {
-        rosewater = "#f2d5cf";
-        flamingo = "#eebebe";
-        pink = "#f4b8e4";
-        mauve = "#ca9ee6";
-        red = "#e78284";
-        maroon = "#ea999c";
-        peach = "#ef9f76";
-        yellow = "#e5c890";
-        green = "#a6d189";
-        teal = "#81c8be";
-        sky = "#99d1db";
-        sapphire = "#85c1dc";
-        blue = "#8caaee";
-        lavender = "#babbf1";
-        text = "#c6d0f5";
-        subtext1 = "#b5bfe2";
-        subtext0 = "#a5adce";
-        overlay2 = "#949cbb";
-        overlay1 = "#838ba7";
-        overlay0 = "#737994";
-        surface2 = "#626880";
-        surface1 = "#51576d";
-        surface0 = "#414559";
-        base = "#303446";
-        mantle = "#292c3c";
-        crust = "#232634";
-      };
-
-      palette = "catppuccin_frappe";
+      palette = "kanagawa";
     };
   };
 }
