@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # TODO:
   #   - Proton Mail Bridge
   #   - Proton Drive set up home folders

@@ -3,8 +3,7 @@
 , config
 , outputs
 , ...
-}:
-{
+}: {
   nix = {
     package = pkgs.nix;
 

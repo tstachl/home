@@ -1,5 +1,7 @@
-{ pkgs, config, ... }:
-{
+{ pkgs
+, config
+, ...
+}: {
   # - WARNING Neither Tc nor RGB capability set. True colors are disabled. |'termguicolors'| won't work properly.
   #   - ADVICE:
   #     - Put this in your ~/.tmux.conf and replace XXX by your $TERM outside of tmux:

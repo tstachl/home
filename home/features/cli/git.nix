@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   home.packages = [
     pkgs.git
     pkgs.git-crypt
@@ -13,18 +12,20 @@
     userName = "Thomas Stachl";
     userEmail = "i@t5.st";
 
-    includes = [{
-      condition = "gitdir/i:~/workspace/aesir/**";
-      contents = {
-        core.sshCommand = "ssh -i ~/.ssh/id_aesirdev";
-        user = {
-          email = "dev@aesirdev.com";
-          name = "Æsir Dev";
-          signingKey = "58145313C9636027";
+    includes = [
+      {
+        condition = "gitdir/i:~/workspace/aesir/**";
+        contents = {
+          core.sshCommand = "ssh -i ~/.ssh/id_aesirdev";
+          user = {
+            email = "dev@aesirdev.com";
+            name = "Æsir Dev";
+            signingKey = "58145313C9636027";
+          };
+          commit.gpgSign = true;
         };
-        commit.gpgSign = true;
-      };
-    }];
+      }
+    ];
 
     signing = {
       key = "ED5EAAA8E895B23A";
@@ -154,12 +155,11 @@
     };
   };
 }
-
 # [filter "lfs"]
 # 	clean = git-lfs clean -- %f
 # 	smudge = git-lfs smudge -- %f
 # 	process = git-lfs filter-process
 # 	required = true
-
 # TODO: Proton Drive
 # ln -s ~/Library/CloudStorage/ProtonDrive-pilinas@pm.me-folder/Photos ~/Photos
+

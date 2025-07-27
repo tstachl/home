@@ -1,4 +1,7 @@
-{ fetchFromGitHub, tmuxPlugins }:
+{ fetchFromGitHub
+, tmuxPlugins
+,
+}:
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "tmux-select-pane-no-wrap";
   version = "00add78";

@@ -1,24 +1,29 @@
-{ inputs, outputs }:
+{ inputs
+, outputs
+,
+}:
+
 let
+  inherit (inputs) darwin devenv home-manager nixpkgs;
+  inherit (nixpkgs) lib;
   # Helper to determine if a system is Darwin
   isDarwin = system: builtins.elem "darwin" (builtins.split "-" system);
 
   # Helper to get the appropriate nixpkgs for a system
-  getPkgsForSystem =
-    system:
-    if isDarwin system then
-      inputs.nixpkgs-darwin.legacyPackages.${system}
-    else
-      inputs.nixpkgs.legacyPackages.${system};
+  getPkgsForSystem = system:
+    if isDarwin system
+    then inputs.nixpkgs-darwin.legacyPackages.${system}
+    else inputs.nixpkgs.legacyPackages.${system};
 in
+
 rec {
   mkSystem =
     { system
-    , nixpkgs ? inputs.nixpkgs
+    , nixpkgs ? nixpkgs
     , modules ? [ ]
     ,
     }:
-    inputs.nixpkgs.lib.nixosSystem {
+    lib.nixosSystem {
       inherit system modules nixpkgs;
       specialArgs = { inherit inputs outputs; };
     };
@@ -28,7 +33,7 @@ rec {
     , modules ? [ ]
     ,
     }:
-    inputs.darwin.lib.darwinSystem {
+    darwin.lib.darwinSystem {
       inherit system modules;
       specialArgs = { inherit inputs outputs; };
     };
@@ -38,33 +43,34 @@ rec {
     , modules ? [ ]
     ,
     }:
-    inputs.home-manager.lib.homeManagerConfiguration {
+    home-manager.lib.homeManagerConfiguration {
       inherit modules;
       pkgs = getPkgsForSystem system;
       extraSpecialArgs = { inherit inputs outputs; };
     };
 
-  mkDevenvShell =
-    config:
+  mkDevenvShell = config:
     eachSystemWithPkgs (
       { pkgs }:
-      {
-        default = inputs.devenv.lib.mkShell {
-          inherit inputs pkgs;
-          modules = [ config ];
-        };
-      }
+      lib.mapAttrs
+        (
+          _name: module:
+            devenv.lib.mkShell {
+              inherit inputs pkgs;
+              modules = [ module ];
+            }
+        )
+        config
     );
 
-  eachSystem = inputs.nixpkgs.lib.genAttrs [
+  eachSystem = lib.genAttrs [
     "x86_64-linux"
     "x86_64-darwin"
     "aarch64-linux"
     "aarch64-darwin"
   ];
 
-  eachSystemWithPkgs =
-    f:
+  eachSystemWithPkgs = f:
     eachSystem (
       system:
       f {
@@ -72,8 +78,7 @@ rec {
       }
     );
 
-  print =
-    text:
+  print = text:
     let
       json = builtins.toJSON text;
     in

@@ -1,5 +1,4 @@
-{ inputs, ... }:
-rec {
+{ inputs, ... }: rec {
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: import ../packages { pkgs = final; };
 
@@ -17,9 +16,11 @@ rec {
       old: inputs.nixpkgs.lib.recursiveUpdate old { meta.broken = false; }
     );
 
-    tmuxPlugins = prev.tmuxPlugins // {
-      tmux-select-pane-no-wrap = prev.tmux-select-pane-no-wrap;
-    };
+    tmuxPlugins =
+      prev.tmuxPlugins
+      // {
+        tmux-select-pane-no-wrap = prev.tmux-select-pane-no-wrap;
+      };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

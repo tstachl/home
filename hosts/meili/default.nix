@@ -1,10 +1,11 @@
-{ outputs, ... }:
-{
-  imports = [
-    outputs.modules.global.nix-config
-    ./system.nix
-    ./software.nix
-  ] ++ (builtins.attrValues outputs.modules.darwin);
+{ outputs, ... }: {
+  imports =
+    [
+      outputs.modules.global.nix-config
+      ./system.nix
+      ./software.nix
+    ]
+    ++ (builtins.attrValues outputs.modules.darwin);
 
   # NOTE: might be valuable to put this in it's own file
   # nix.linux-builder = {

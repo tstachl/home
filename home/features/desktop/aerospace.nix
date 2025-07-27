@@ -1,5 +1,8 @@
-{ pkgs, config, lib, ... }:
-
+{ pkgs
+, config
+, lib
+, ...
+}:
 let
   cfg = config.programs.aerospace;
   aerospace = "${pkgs.lib.meta.getExe cfg.package}";
@@ -34,7 +37,6 @@ let
 
   aerospace-focus = "${pkgs.lib.meta.getExe aerospace-focus-pkg}";
 in
-
 {
   home.packages = [ aerospace-focus-pkg ];
 

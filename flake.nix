@@ -17,60 +17,55 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, ... }@inputs:
-    rec {
+  outputs = { self, ... } @ inputs: rec {
+    lib = import ./lib {
+      inherit inputs;
+      inherit (self) outputs;
+    };
 
-      lib = import ./lib {
-        inherit inputs;
-        inherit (self) outputs;
+    homeConfigurations = {
+      "thomas@meili" = lib.mkHome {
+        system = "aarch64-darwin";
+        modules = [ ./home/meili.nix ];
       };
 
-      homeConfigurations = {
-        "thomas@meili" = lib.mkHome {
-          system = "aarch64-darwin";
-          modules = [ ./home/meili.nix ];
-        };
-
-        "thomas@modgud" = lib.mkHome {
-          system = "x86_64-linux";
-          modules = [ ./home/modgud.nix ];
-        };
+      "thomas@modgud" = lib.mkHome {
+        system = "x86_64-linux";
+        modules = [ ./home/modgud.nix ];
       };
+    };
 
-      nixosConfigurations = {
-        # modgud = lib.mkSystem {
-        #   system = "x86_64-linux";
-        #   modules = [ ./hosts/modgud ];
-        # };
+    nixosConfigurations = {
+      # modgud = lib.mkSystem {
+      #   system = "x86_64-linux";
+      #   modules = [ ./hosts/modgud ];
+      # };
 
-        # odin = lib.mkSystem {
-        #   system = "x86_64-linux";
-        #   modules = [ ./hosts/odin ];
-        # };
+      # odin = lib.mkSystem {
+      #   system = "x86_64-linux";
+      #   modules = [ ./hosts/odin ];
+      # };
+    };
+
+    darwinConfigurations = {
+      meili = lib.mkDarwin {
+        system = "aarch64-darwin";
+        modules = [ ./hosts/meili ];
       };
+    };
 
-      darwinConfigurations = {
-        meili = lib.mkDarwin {
-          system = "aarch64-darwin";
-          modules = [ ./hosts/meili ];
-        };
-      };
+    devShells = lib.mkDevenvShell {
+      default = import ./devenv.nix;
+    };
 
-      devShells = lib.mkDevenvShell {
-        git-hooks.hooks = {
-          deadnix.enable = true;
-          nixpkgs-fmt.enable = true;
-        };
+    modules = import ./modules;
+    overlays = import ./overlays { inherit inputs; };
 
-        scripts.update.exec = "nix flake update";
-      };
-
-      modules = import ./modules;
-      overlays = import ./overlays { inherit inputs; };
-
-      packages = lib.eachSystem (import ./packages) // lib.eachSystem (system: {
+    packages =
+      lib.eachSystem (import ./packages)
+      // lib.eachSystem (system: {
         devenv-up = self.devShells.${system}.default.config.procfileScript;
         devenv-test = self.devShells.${system}.default.config.test;
       });
-    };
+  };
 }

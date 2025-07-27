@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 let
   catppuccin-src = pkgs.fetchFromGitHub {
     owner = "catppuccin";
@@ -8,7 +7,6 @@ let
     sha256 = "sha256-6fWoCH90IGumAMc4buLRWL0N61op+AuMNN9CAR9/OdI=";
   };
 in
-
 {
   programs.bat = {
     enable = true;

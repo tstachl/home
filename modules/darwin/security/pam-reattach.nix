@@ -3,14 +3,10 @@
 , pkgs
 , ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.security.pam;
 
-  mkPamReattachScript =
-    isEnabled:
+  mkPamReattachScript = isEnabled:
     let
       file = "/etc/pam.d/sudo";
       option = "security.pam.reattach";
@@ -18,49 +14,49 @@ let
     in
     ''
       ${
-        if isEnabled then
-          ''
-            # If enable and in file, remove and re-add in case the store path has
-            # changed
-            if grep '${option}' ${file} > /dev/null; then
-              ${sed} -i '/${option}/d' ${file}
-            fi
+        if isEnabled
+        then ''
+          # If enable and in file, remove and re-add in case the store path has
+          # changed
+          if grep '${option}' ${file} > /dev/null; then
+            ${sed} -i '/${option}/d' ${file}
+          fi
 
-            ${sed} -i '2i\
-            auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh # nix-darwin: ${option}
-            ' ${file}
-          ''
-        else
-          ''
-            # Disable pam_reattach, if added by nix-darwin
-            if grep '${option}' ${file} > /dev/null; then
-              ${sed} -i '/${option}/d' ${file}
-            fi
-          ''
+          ${sed} -i '2i\
+          auth       optional       ${pkgs.pam-reattach}/lib/pam/pam_reattach.so ignore_ssh # nix-darwin: ${option}
+          ' ${file}
+        ''
+        else ''
+          # Disable pam_reattach, if added by nix-darwin
+          if grep '${option}' ${file} > /dev/null; then
+            ${sed} -i '/${option}/d' ${file}
+          fi
+        ''
       }
     '';
 in
-
 {
   options = {
-    security.pam.enablePamReattach = mkEnableOption "" // {
-      description = lib.mdDoc ''
-        Enable pam_reattach sudo authentication with Touch ID in tmux/screen.
+    security.pam.enablePamReattach =
+      mkEnableOption ""
+      // {
+        description = lib.mdDoc ''
+          Enable pam_reattach sudo authentication with Touch ID in tmux/screen.
 
-        When enabled, this option adds the following line to
-        {file}`/etc/pam.d/sudo`:
+          When enabled, this option adds the following line to
+          {file}`/etc/pam.d/sudo`:
 
-        ```
-        auth       optional     pam_reattach.so ignore_ssh
-        ```
+          ```
+          auth       optional     pam_reattach.so ignore_ssh
+          ```
 
-        ::: {.note}
-        macOS resets this file when doing a system update. As such,
-        pam_reattach won't work after a system update
-        until the nix-darwin configuration is reapplied.
-        :::
-      '';
-    };
+          ::: {.note}
+          macOS resets this file when doing a system update. As such,
+          pam_reattach won't work after a system update
+          until the nix-darwin configuration is reapplied.
+          :::
+        '';
+      };
   };
 
   config = {

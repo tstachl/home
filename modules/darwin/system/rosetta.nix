@@ -1,11 +1,10 @@
-{ config, lib, ... }:
-
-with lib;
-
-let
+{ config
+, lib
+, ...
+}:
+with lib; let
   cfg = config.system.rosetta;
 in
-
 {
   options = {
     system.rosetta.enable = mkOption {

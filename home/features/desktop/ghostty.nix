@@ -3,7 +3,6 @@
 , lib
 , ...
 }:
-
 let
   ghosttyCatppuccinSrc = pkgs.fetchFromGitHub {
     owner = "catppuccin";
@@ -12,7 +11,6 @@ let
     sha256 = "sha256-RlgTeBkjEvZpkZbhIss3KxQcvt0goy4WU+w9d2XCOnw=";
   };
 in
-
 {
   xdg.configFile = {
     "ghostty/themes/catppuccin-frappe.conf".text =

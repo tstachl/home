@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   programs.password-store.enable = true;
 
   programs.fish.shellInit = ''

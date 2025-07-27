@@ -2,8 +2,7 @@
 , outputs
 , lib
 , ...
-}:
-{
+}: {
   imports = [
     # INFO: this is shared between home-manager, nixos, and darwin
     outputs.modules.global.nix-config
@@ -16,7 +15,10 @@
     enableNixpkgsReleaseCheck = false;
 
     username = "thomas";
-    homeDirectory = if pkgs.stdenv.isDarwin then "/Users/thomas" else "/home/thomas";
+    homeDirectory =
+      if pkgs.stdenv.isDarwin
+      then "/Users/thomas"
+      else "/home/thomas";
 
     packages = with pkgs; [
       cachix

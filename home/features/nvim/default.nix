@@ -1,11 +1,15 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs
+, lib
+, pkgs
+, ...
+}:
 let
   # Define `recursiveUpdateMany` if not present
   recursiveUpdateMany = sets: lib.fold lib.attrsets.recursiveUpdate { } sets;
 
   # Merge all plugin configurations directly from imports
   nixvim = recursiveUpdateMany [
-    ({
+    {
       enable = true;
       defaultEditor = true;
       vimdiffAlias = true;
@@ -31,7 +35,7 @@ let
         })
         vim.cmd.colorscheme("nord")
       '';
-    })
+    }
 
     (import ./keymaps.nix)
     (import ./options.nix)

@@ -1,5 +1,4 @@
-{ outputs, ... }:
-{
+{ outputs, ... }: {
   imports = [
     outputs.modules.home-manager.zen-browser
   ];

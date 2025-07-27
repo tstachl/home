@@ -1,5 +1,7 @@
-{ pkgs, outputs, ... }:
-{
+{ pkgs
+, outputs
+, ...
+}: {
   imports = [
     outputs.modules.global
 

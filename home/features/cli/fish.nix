@@ -1,5 +1,7 @@
-{ lib, pkgs, ... }:
-{
+{ lib
+, pkgs
+, ...
+}: {
   programs.fish = {
     enable = true;
     shellAliases = import ./shell-aliases.nix;
@@ -15,5 +17,6 @@
       repo = "fish";
       rev = "cc8e4d8";
       sha256 = "sha256-udiU2TOh0lYL7K7ylbt+BGlSDgCjMpy75vQ98C1kFcc=";
-    } + "/themes/Catppuccin Frappe.theme");
+    }
+  + "/themes/Catppuccin Frappe.theme");
 }

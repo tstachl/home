@@ -1,5 +1,7 @@
-{ buildDotnetGlobalTool, lib, ... }:
-
+{ buildDotnetGlobalTool
+, lib
+, ...
+}:
 buildDotnetGlobalTool {
   pname = "photo-cli";
   version = "0.3.3";
