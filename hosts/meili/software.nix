@@ -1,4 +1,4 @@
-{ pkgs, outputs, ... }:
+{ pkgs, ... }:
 {
   # TODO:
   #   - Proton Mail Bridge

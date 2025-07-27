@@ -1,4 +1,4 @@
-{ outputs, pkgs, ... }:
+{ outputs, ... }:
 {
   imports = [
     outputs.modules.global.nix-config
@@ -60,7 +60,9 @@
   };
 
   users.users.thomas.home = "/Users/thomas";
+  users.groups.nix-users.members = [ "thomas" ];
   ids.gids.nixbld = 350;
+  nix.settings.trusted-users = [ "thomas" ];
 
   networking = {
     hostName = "meili";

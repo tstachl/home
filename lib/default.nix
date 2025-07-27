@@ -13,10 +13,10 @@ let
 in
 rec {
   mkSystem =
-    {
-      system,
-      nixpkgs ? inputs.nixpkgs,
-      modules ? [ ],
+    { system
+    , nixpkgs ? inputs.nixpkgs
+    , modules ? [ ]
+    ,
     }:
     inputs.nixpkgs.lib.nixosSystem {
       inherit system modules nixpkgs;
@@ -24,9 +24,9 @@ rec {
     };
 
   mkDarwin =
-    {
-      system,
-      modules ? [ ],
+    { system
+    , modules ? [ ]
+    ,
     }:
     inputs.darwin.lib.darwinSystem {
       inherit system modules;
@@ -34,9 +34,9 @@ rec {
     };
 
   mkHome =
-    {
-      system,
-      modules ? [ ],
+    { system
+    , modules ? [ ]
+    ,
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit modules;
@@ -44,7 +44,7 @@ rec {
       extraSpecialArgs = { inherit inputs outputs; };
     };
 
-  mkDevenvShell = 
+  mkDevenvShell =
     config:
     eachSystemWithPkgs (
       { pkgs }:

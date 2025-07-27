@@ -1,8 +1,7 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
+{ pkgs
+, config
+, lib
+, ...
 }:
 
 let
@@ -19,7 +18,7 @@ in
     "ghostty/themes/catppuccin-frappe.conf".text =
       lib.strings.fileContents
         (ghosttyCatppuccinSrc + "/themes/catppuccin-frappe.conf");
-    
+
     "ghostty/themes/catppuccin-latte.conf".text =
       lib.strings.fileContents
         (ghosttyCatppuccinSrc + "/themes/catppuccin-latte.conf");

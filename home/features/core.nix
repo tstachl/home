@@ -1,8 +1,7 @@
-{
-  pkgs,
-  outputs,
-  lib,
-  ...
+{ pkgs
+, outputs
+, lib
+, ...
 }:
 {
   imports = [
