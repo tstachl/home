@@ -22,7 +22,7 @@
     terminal = "tmux-256color";
 
     plugins = with pkgs.tmuxPlugins; [
-      pkgs.more-tmux-plugins.tmux-select-pane-no-wrap
+      tmux-select-pane-no-wrap
       {
         plugin = catppuccin;
         extraConfig = ''
