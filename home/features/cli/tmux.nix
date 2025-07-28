@@ -17,17 +17,10 @@
     terminal = "tmux-256color";
 
     plugins = with pkgs.tmuxPlugins; [
+      sensible
       tmux-select-pane-no-wrap
-      {
-        plugin = catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavor 'frappe' # latte, frappe, macchiato or mocha
-          set -g @catppuccin_window_text " #W"
-          set -g @catppuccin_window_current_text " #W"
-        '';
-      }
-      vim-tmux-focus-events
       vim-tmux-navigator
+      yank
       {
         plugin = tmux-floax;
         extraConfig = ''
@@ -35,22 +28,15 @@
         '';
       }
       {
-        plugin = yank;
+        plugin = kanagawa;
         extraConfig = ''
-          bind-key -T copy-mode-vi v send-keys -X begin-selection
-          bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-          bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        '';
-      }
-      {
-        plugin = resurrect;
-        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-      }
-      {
-        plugin = continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '60' # minutes
+          set -g @kanagawa-theme 'dragon'
+          set -g @kanagawa-refresh-rate 60
+          set -g @kanagawa-show-left-icon window
+          set -g @kanagawa-show-battery true
+          set -g @kanagawa-show-powerline true
+          set -g @kanagawa-show-location false
+          set -g window-style 'fg=colour250'
         '';
       }
     ];
@@ -75,7 +61,7 @@
       set-option -sa terminal-features ',xterm-256color:RGB'
 
       # default layout
-      set-hook -g after-new-window 'split-window -v -p 20'
+      # set-hook -g after-new-window 'split-window -v -p 20'
     '';
   };
 }

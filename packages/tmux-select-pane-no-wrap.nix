@@ -3,11 +3,12 @@
 ,
 }:
 tmuxPlugins.mkTmuxPlugin rec {
-  pluginName = "tmux-select-pane-no-wrap";
+  pluginName = "select-pane-no-wrap";
   version = "00add78";
+  rtpFilePath = "${pluginName}.tmux";
   src = fetchFromGitHub {
     owner = "dalejung";
-    repo = pluginName;
+    repo = "tmux-${pluginName}";
     rev = version;
     sha256 = "sha256-ot0cHvk1TXvHOw9z+7TLSiHT77jHwvV2PSHcNuhOorQ=";
   };

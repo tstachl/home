@@ -13,6 +13,7 @@
     '';
     hms.exec = ''
       ${lib.getExe pkgs.home-manager} switch --flake .#$(whoami)@$(hostname);
+      zen --ProfileManager
     '';
 
     nrb.exec = ''
