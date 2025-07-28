@@ -1,5 +1,7 @@
-{ lib, inputs, ... }:
-{
+{ lib
+, inputs
+, ...
+}: {
   imports = [
     inputs.disko.nixosModules.disko
   ];

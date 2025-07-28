@@ -1,21 +1,19 @@
+{ pkgs, ... }:
 {
   imports = [
-    ./aider-chat.nix
-    ./bash.nix
     ./bat.nix
-    ./direnv.nix
     ./fish.nix
-    ./fzf.nix
     ./git.nix
     ./gnupg.nix
-    ./nostr.nix
-    ./nushell.nix
-    ./pass.nix
     ./ssh.nix
     ./starship.nix
     ./tmux.nix
-    ./yazi.nix
-    ./zoxide.nix
-    ./zsh.nix
   ];
+
+  home.packages = [ pkgs.unstable.nak ];
+
+  programs.bash.enable = true;
+  programs.direnv.enable = true;
+  programs.zoxide.enable = true;
+  programs.zsh.enable = true;
 }

@@ -1,10 +1,12 @@
-{ outputs, pkgs, ... }:
+{ outputs, config, ... }:
 {
-  imports = [
-    outputs.modules.global.nix-config
-    ./system.nix
-    ./software.nix
-  ] ++ (builtins.attrValues outputs.modules.darwin);
+  imports =
+    [
+      outputs.modules.global.nix-config
+      ./system.nix
+      ./software.nix
+    ]
+    ++ (builtins.attrValues outputs.modules.darwin);
 
   # NOTE: might be valuable to put this in it's own file
   # nix.linux-builder = {
@@ -43,6 +45,10 @@
     };
   };
 
+  environment.shells = [
+    config.programs.fish.package
+  ];
+
   # TODO: move into module:
   # system.activationScripts.extraActivation.text = lib.mkAfter ''
   #   # disable spotlight
@@ -60,7 +66,10 @@
   };
 
   users.users.thomas.home = "/Users/thomas";
+  users.users.thomas.shell = config.programs.fish.package;
+  users.groups.nix-users.members = [ "thomas" ];
   ids.gids.nixbld = 350;
+  nix.settings.trusted-users = [ "thomas" ];
 
   networking = {
     hostName = "meili";

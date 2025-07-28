@@ -1,5 +1,4 @@
-{ pkgs, outputs, ... }:
-{
+{ pkgs, ... }: {
   # TODO:
   #   - Proton Mail Bridge
   #   - Proton Drive set up home folders
@@ -46,7 +45,6 @@
       # "tor-browser"
       # "utm"
       "vlc"
-      "zen"
       # "whatsapp"
       # "krunkit"
     ];

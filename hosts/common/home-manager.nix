@@ -1,10 +1,12 @@
-{ inputs, outputs, ... }:
+{ inputs
+, outputs
+, ...
+}:
 let
   home-manager-module =
-    if builtins.runCommand "uname" ''{ outFile = "/dev/stdout"; }'' == "Darwin" then
-      inputs.home-manager.darwinModules.home-manager
-    else
-      inputs.home-manager.nixosModules.home-manager;
+    if builtins.runCommand "uname" ''{ outFile = "/dev/stdout"; }'' == "Darwin"
+    then inputs.home-manager.darwinModules.home-manager
+    else inputs.home-manager.nixosModules.home-manager;
 in
 {
   imports = [ home-manager-module ];

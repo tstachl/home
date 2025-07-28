@@ -1,14 +1,10 @@
-{ pkgs, config, ... }:
-{
-  # - WARNING Neither Tc nor RGB capability set. True colors are disabled. |'termguicolors'| won't work properly.
-  #   - ADVICE:
-  #     - Put this in your ~/.tmux.conf and replace XXX by your $TERM outside of tmux:
-  #       set-option -sa terminal-features ',XXX:RGB'
-  #     - For older tmux versions use this instead:
-  #       set-option -ga terminal-overrides ',XXX:Tc'
-
+{ pkgs
+, config
+, lib
+, ...
+}: {
   programs.tmux = {
-    sensibleOnTop = false;
+    sensibleOnTop = true;
 
     baseIndex = 1;
     clock24 = true;
@@ -17,20 +13,13 @@
     keyMode = "vi";
     mouse = true;
     prefix = "C-a";
-    # shell = "${pkgs.fish}/bin/fish";
-    shell = "${pkgs.lib.meta.getExe config.programs.fish.package}";
+    shell = "${lib.getExe config.programs.fish.package}";
     terminal = "tmux-256color";
 
     plugins = with pkgs.tmuxPlugins; [
-      pkgs.more-tmux-plugins.tmux-select-pane-no-wrap
-      {
-        plugin = catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavor 'frappe' # latte, frappe, macchiato or mocha
-        '';
-      }
-      vim-tmux-focus-events
+      tmux-select-pane-no-wrap
       vim-tmux-navigator
+      yank
       {
         plugin = tmux-floax;
         extraConfig = ''
@@ -38,27 +27,23 @@
         '';
       }
       {
-        plugin = yank;
+        plugin = kanagawa;
         extraConfig = ''
-          bind-key -T copy-mode-vi v send-keys -X begin-selection
-          bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-          bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        '';
-      }
-      {
-        plugin = resurrect;
-        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
-      }
-      {
-        plugin = continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '60' # minutes
+          set -g @kanagawa-theme 'dragon'
+          set -g @kanagawa-refresh-rate 60
+          set -g @kanagawa-show-left-icon window
+          set -g @kanagawa-show-battery true
+          set -g @kanagawa-show-powerline true
+          set -g @kanagawa-show-location false
         '';
       }
     ];
 
     extraConfig = ''
+      # TODO: this should only run on macos
+      # sensible plugin assumes $SHELL is /bin/sh
+      set-option -g default-command "${lib.getExe' pkgs.reattach-to-user-namespace "reattach-to-user-namespace"} -l $SHELL"
+
       # split windows on the current path
       unbind %
       unbind '"'
@@ -78,7 +63,10 @@
       set-option -sa terminal-features ',xterm-256color:RGB'
 
       # default layout
-      set-hook -g after-new-window 'split-window -v -p 20'
+      # set-hook -g after-new-window 'split-window -v -p 20'
+
+      # transparent please
+      set -g window-style 'fg=colour250,bg=default'
     '';
   };
 }

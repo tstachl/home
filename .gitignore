@@ -5,3 +5,4 @@ result*
 .DS_Store
 cert*
 key*
+/.pre-commit-config.yaml
