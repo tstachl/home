@@ -45,7 +45,6 @@
       # "tor-browser"
       # "utm"
       "vlc"
-      "zen"
       # "whatsapp"
       # "krunkit"
     ];
