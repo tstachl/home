@@ -4,7 +4,7 @@
 , ...
 }: {
   programs.tmux = {
-    sensibleOnTop = false;
+    sensibleOnTop = true;
 
     baseIndex = 1;
     clock24 = true;
@@ -17,7 +17,6 @@
     terminal = "tmux-256color";
 
     plugins = with pkgs.tmuxPlugins; [
-      sensible
       tmux-select-pane-no-wrap
       vim-tmux-navigator
       yank
@@ -36,12 +35,15 @@
           set -g @kanagawa-show-battery true
           set -g @kanagawa-show-powerline true
           set -g @kanagawa-show-location false
-          set -g window-style 'fg=colour250'
         '';
       }
     ];
 
     extraConfig = ''
+      # TODO: this should only run on macos
+      # sensible plugin assumes $SHELL is /bin/sh
+      set-option -g default-command "${lib.getExe' pkgs.reattach-to-user-namespace "reattach-to-user-namespace"} -l $SHELL"
+
       # split windows on the current path
       unbind %
       unbind '"'
@@ -62,6 +64,9 @@
 
       # default layout
       # set-hook -g after-new-window 'split-window -v -p 20'
+
+      # transparent please
+      set -g window-style 'fg=colour250,bg=default'
     '';
   };
 }

@@ -1,4 +1,5 @@
-{ outputs, ... }: {
+{ outputs, config, ... }:
+{
   imports =
     [
       outputs.modules.global.nix-config
@@ -44,6 +45,10 @@
     };
   };
 
+  environment.shells = [
+    config.programs.fish.package
+  ];
+
   # TODO: move into module:
   # system.activationScripts.extraActivation.text = lib.mkAfter ''
   #   # disable spotlight
@@ -61,6 +66,7 @@
   };
 
   users.users.thomas.home = "/Users/thomas";
+  users.users.thomas.shell = config.programs.fish.package;
   users.groups.nix-users.members = [ "thomas" ];
   ids.gids.nixbld = 350;
   nix.settings.trusted-users = [ "thomas" ];
