@@ -1,7 +1,12 @@
 { inputs
+, config
+, lib
 , pkgs
 , ...
 }:
+let
+  tmux-sessionizer = lib.getExe config.programs.tmux.sessionizer.package;
+in
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
@@ -110,6 +115,13 @@
 
       { key = "n"; action = "nzzzv"; mode = "n"; options.desc = "Find next and center cursor"; }
       { key = "N"; action = "Nzzzv"; mode = "n"; options.desc = "Find previous and center cursor"; }
+
+      # tmux-sessionizer
+      { mode = "n"; key = "<C-f>"; action = "<cmd>silent !tmux neww ${tmux-sessionizer}<CR>"; options.desc = "Tmux sessionizer"; }
+      { mode = "n"; key = "<M-h>"; action = "<cmd>silent !tmux neww ${tmux-sessionizer} -s 0<CR>"; options.desc = "Tmux sessionizer with session 0"; }
+      { mode = "n"; key = "<M-t>"; action = "<cmd>silent !tmux neww ${tmux-sessionizer} -s 1<CR>"; options.desc = "Tmux sessionizer with session 1"; }
+      { mode = "n"; key = "<M-n>"; action = "<cmd>silent !tmux neww ${tmux-sessionizer} -s 2<CR>"; options.desc = "Tmux sessionizer with session 2"; }
+      { mode = "n"; key = "<M-s>"; action = "<cmd>silent !tmux neww ${tmux-sessionizer} -s 3<CR>"; options.desc = "Tmux sessionizer with session 3"; }
     ];
   };
 }

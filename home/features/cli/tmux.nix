@@ -2,7 +2,13 @@
 , config
 , lib
 , ...
-}: {
+}:
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+  reattach-to-user-namespace = lib.getExe' pkgs.reattach-to-user-namespace "reattach-to-user-namespace";
+  tmux-sessionizer = lib.getExe config.programs.tmux.sessionizer.package;
+in
+{
   programs.tmux = {
     sensibleOnTop = true;
 
@@ -12,9 +18,13 @@
     escapeTime = 10;
     keyMode = "vi";
     mouse = true;
-    prefix = "C-a";
+    prefix = "C-Space";
     shell = "${lib.getExe config.programs.fish.package}";
     terminal = "tmux-256color";
+
+    sessionizer.enable = true;
+    sessionizer.searchPaths = [ "~/workspace" ];
+    sessionizer.maxDepth = 2;
 
     plugins = with pkgs.tmuxPlugins; [
       tmux-select-pane-no-wrap
@@ -35,14 +45,18 @@
           set -g @kanagawa-show-battery true
           set -g @kanagawa-show-powerline true
           set -g @kanagawa-show-location false
+          set -g @kanagawa-ignore-window-colors true
         '';
       }
     ];
 
     extraConfig = ''
-      # TODO: this should only run on macos
-      # sensible plugin assumes $SHELL is /bin/sh
-      set-option -g default-command "${lib.getExe' pkgs.reattach-to-user-namespace "reattach-to-user-namespace"} -l $SHELL"
+      ${lib.optionalString isDarwin ''
+        # sensible plugin assumes $SHELL is /bin/sh
+        # --- Darwin-Specific Settings (Raw Tmux Commands) ---
+        # This block is only included if the system is Darwin
+        set-option -g default-command "${reattach-to-user-namespace} -l $SHELL"
+      ''}
 
       # split windows on the current path
       unbind %
@@ -56,17 +70,11 @@
       bind -r j resize-pane -D 1
       bind -r k resize-pane -U 1
 
-      # change width of left status bar to allow space for session names
-      set -g status-left-length 30
-
-      # - Put this in your ~/.tmux.conf and replace XXX by your $TERM outside of tmux:
-      set-option -sa terminal-features ',xterm-256color:RGB'
-
-      # default layout
-      # set-hook -g after-new-window 'split-window -v -p 20'
-
-      # transparent please
-      set -g window-style 'fg=colour250,bg=default'
+      # additional keybindings for tmux-sessionizer
+      bind-key -r M-h run-shell "tmux neww ${tmux-sessionizer} -s 0"
+      bind-key -r M-t run-shell "tmux neww ${tmux-sessionizer} -s 1"
+      bind-key -r M-n run-shell "tmux neww ${tmux-sessionizer} -s 2"
+      bind-key -r M-s run-shell "tmux neww ${tmux-sessionizer} -s 3"
     '';
   };
 }

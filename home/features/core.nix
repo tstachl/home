@@ -6,7 +6,8 @@
   imports = [
     # INFO: this is shared between home-manager, nixos, and darwin
     outputs.modules.global.nix-config
-  ];
+  ]
+  ++ (builtins.attrValues outputs.modules.home-manager);
 
   xdg.enable = true;
 

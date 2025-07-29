@@ -64,11 +64,9 @@
     modules = import ./modules;
     overlays = import ./overlays { inherit inputs; };
 
-    packages =
-      lib.eachSystem (import ./packages)
-      // lib.eachSystem (system: {
-        devenv-up = self.devShells.${system}.default.config.procfileScript;
-        devenv-test = self.devShells.${system}.default.config.test;
-      });
+    packages = lib.eachSystem (system: {
+      devenv-up = self.devShells.${system}.default.config.procfileScript;
+      devenv-test = self.devShells.${system}.default.config.test;
+    } // import ./packages { });
   };
 }

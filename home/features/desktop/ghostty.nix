@@ -10,6 +10,8 @@ let
     rev = "master";
     sha256 = "sha256-i54hTf4AEFTiJb+j5llC5+Xvepj43DiNJSq0vPZCIAg=";
   };
+
+  tmux-sessionizer = lib.getExe config.programs.tmux.sessionizer.package;
 in
 {
   xdg.configFile = {
@@ -52,6 +54,14 @@ in
       window-padding-x = 10;
       window-padding-y = "10,0";
       window-theme = "ghostty";
+
+      keybind = [
+        "ctrl+f=text:\"${tmux-sessionizer}\n\""
+        "alt+h=text:\"${tmux-sessionizer} -s 0\n\""
+        "alt+t=text:\"${tmux-sessionizer} -s 1\n\""
+        "alt+n=text:\"${tmux-sessionizer} -s 2\n\""
+        "alt+s=text:\"${tmux-sessionizer} -s 3\n\""
+      ];
     };
   };
 }

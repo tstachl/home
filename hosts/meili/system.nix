@@ -16,6 +16,14 @@
     };
 
     defaults = {
+      # TODO: to make <C-Space> work, we need to disable these
+      # hotkeys, but I don't know if that's possible with nix-darwin
+      # Preferences -> Keyboard -> Keyboard Shortcuts -> Input Sources
+      # "com.apple.symbolichotkeys" = {
+      #   "60" = 0; 
+      #   "61" = 0;
+      # };
+
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
 
       dock = {
