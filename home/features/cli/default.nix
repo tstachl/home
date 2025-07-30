@@ -14,6 +14,7 @@
 
   programs.bash.enable = true;
   programs.direnv.enable = true;
+  programs.fzf.enable = true;
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
 }
