@@ -10,8 +10,6 @@
     ripgrep
     ollama
     rlama
-
-    unstable.devenv
   ];
 
   environment.shellInit = ''

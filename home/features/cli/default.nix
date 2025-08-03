@@ -10,7 +10,10 @@
     ./tmux.nix
   ];
 
-  home.packages = [ pkgs.unstable.nak ];
+  home.packages = [
+    pkgs.unstable.devenv
+    pkgs.unstable.nak
+  ];
 
   programs.bash.enable = true;
   programs.direnv.enable = true;
